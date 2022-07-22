@@ -4,6 +4,8 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SETUSERS = 'SETUSERS';
+const SETCURRENTPAGE = 'SETCURRENTPAGE';
+const SETTOTALUSERSCOUNT = 'SETTOTALUSERSCOUNT';
 
 export let addPostActionCreator = () => ({ type: ADD_POST });
 export let updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
@@ -11,7 +13,7 @@ export let updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_T
 let initialState={
         users: [ ],
         pageSize:5,
-        totalUsersCount:7,
+        totalUsersCount:0,
         currentPage:1
     }
 
@@ -39,8 +41,18 @@ const usersReducer = (state = initialState, action) => {
         }
         case SETUSERS:{
             return {...state,            
-                //users: [...state.users,...action.users]}
-                users: [...action.users]}
+                users: action.users}
+                //users: [...action.users]}
+        }
+        case SETCURRENTPAGE: {
+            return {...state,
+                currentPage:action.currentPage
+            }
+        }
+        case SETTOTALUSERSCOUNT: {
+            return {...state,
+                totalUsersCount:action.count
+            }
         }
         default:
             return state;
@@ -51,5 +63,7 @@ const usersReducer = (state = initialState, action) => {
 export let followAC = (userId) => ({ type: FOLLOW, userId:userId });
 export let unfollowAC = (userId) => ({ type: UNFOLLOW, userId:userId  });
 export const setUsersAC = (users) => ({ type: SETUSERS, users });
+export const setCurrentPageAC = (currentPage) => ({ type: SETCURRENTPAGE, currentPage:currentPage });
+export const setUsersTotalCountAC = (totalUsersCount) => ({ type: SETTOTALUSERSCOUNT, count:totalUsersCount });
 
 export default usersReducer;
