@@ -9,8 +9,11 @@ export let addPostActionCreator = () => ({ type: ADD_POST });
 export let updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
 
 let initialState={
-        users: [ ]
-}
+        users: [ ],
+        pageSize:5,
+        totalUsersCount:7,
+        currentPage:1
+    }
 
 const usersReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -36,7 +39,8 @@ const usersReducer = (state = initialState, action) => {
         }
         case SETUSERS:{
             return {...state,            
-                users: [...state.users,...action.users]}
+                //users: [...state.users,...action.users]}
+                users: [...action.users]}
         }
         default:
             return state;
